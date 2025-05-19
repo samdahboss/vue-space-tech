@@ -7,17 +7,8 @@
       </div>
 
       <ul class="nav-links">
-        <li class="nav-link" :class="{ 'active': $route.path === '/' }">
-          <RouterLink to="/"><span class="fw-bold">00</span> Home</RouterLink>
-        </li>
-        <li class="nav-link" :class="{ 'active': $route.path === '/destination' }">
-          <RouterLink to="/destination"><span class="fw-bold">01</span> Destination</RouterLink>
-        </li>
-        <li class="nav-link" :class="{ 'active': $route.path === '/crew' }">
-          <RouterLink to="/crew"><span class="fw-bold">02</span> Crew</RouterLink>
-        </li>
-        <li class="nav-link" :class="{ 'active': $route.path === '/technology' }">
-          <RouterLink to="/technology"><span class="fw-bold">03</span> Technology</RouterLink>
+        <li class="nav-link" v-for="{ name, path, id } in routes" :key="id" :class="{ 'active': $route.path === path }">
+          <RouterLink :to="path"><span class="fw-bold">{{ id }}</span> {{ name }}</RouterLink>
         </li>
       </ul>
 
@@ -25,17 +16,9 @@
 
       <div class="mobile-nav" :class="{ 'mobile-nav--hidden': !mobileNavOpen }">
         <ul class="mobile-nav-links">
-          <li class="nav-link" :class="{ 'active': $route.path === '/' }">
-            <RouterLink to="/"><span class="fw-bold">00</span> Home</RouterLink>
-          </li>
-          <li class="nav-link" :class="{ 'active': $route.path === '/destination' }">
-            <RouterLink to="/destination"><span class="fw-bold">01</span> Destination</RouterLink>
-          </li>
-          <li class="nav-link" :class="{ 'active': $route.path === '/crew' }">
-            <RouterLink to="/crew"><span class="fw-bold">02</span> Crew</RouterLink>
-          </li>
-          <li class="nav-link" :class="{ 'active': $route.path === '/technology' }">
-            <RouterLink to="/technology"><span class="fw-bold">03</span> Technology</RouterLink>
+          <li class="nav-link" v-for="{ name, path, id } in routes" :key="id"
+            :class="{ 'active': $route.path === path }">
+            <RouterLink :to="path"><span class="fw-bold">{{ id }}</span> {{ name }}</RouterLink>
           </li>
         </ul>
       </div>
@@ -47,7 +30,29 @@
 export default {
   data() {
     return {
-      mobileNavOpen: false
+      mobileNavOpen: false,
+      routes: [
+        {
+          name: "Home",
+          id: "00",
+          path: "/"
+        },
+        {
+          name: "Destination",
+          id: "01",
+          path: "/destination"
+        },
+        {
+          name: "Crew",
+          id: "02",
+          path: "/crew"
+        },
+        {
+          name: "Technology",
+          id: "00",
+          path: "/tech"
+        },
+      ]
     };
   },
   methods: {

@@ -1,30 +1,37 @@
 @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
-*{
+* {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
 }
 
-body{
-  height: 100vh;
-  width: 100vw;
-  background-color: black;
+body {
   font-family: 'Barlow', sans-serif;
   font-size: 16px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  color: #fff;
+  width: 100vw;
+  height: 100vh;
+}
+
+main {
+  padding: 4em 6em;
+  height: 80%;
 }
 
 /* Font classes */
 .barlow-condensed {
-  font-family: "Barlow Condensed", sans-serif !important;
+  font-family: 'Barlow Condensed', sans-serif !important;
 }
 
 .bellefair {
-  font-family: "Bellefair", serif !important;
+  font-family: 'Bellefair', serif !important;
 }
 
 .barlow {
-  font-family: "Barlow", sans-serif;
+  font-family: 'Barlow', sans-serif;
 }
 
 /* Utility classes */
@@ -34,4 +41,17 @@ body{
 
 .fw-normal {
   font-weight: 400;
+}
+
+@media (max-width: 768px) {
+  main {
+    height: 90%;
+    padding: 4em 2em 2em;
+  }
+}
+@media (max-width: 570px) {
+  main {
+    height: 90%;
+    padding: 5em 2em 0em;
+  }
 }
