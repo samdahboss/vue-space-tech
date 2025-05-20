@@ -4,25 +4,34 @@
             <span>02</span> Meet your crew
         </h1>
         <div class="crew-content">
-            <div class="crew-text">
-                <h3 class="bellefair fw-normal crew-subtitle">{{ crewMembers[currentCrewMember].role }}</h3>
-                <h1 class="bellefair crew-main-title fw-normal">{{ crewMembers[currentCrewMember].name }}</h1>
-                <p class="crew-description">
-                    {{ crewMembers[currentCrewMember].bio }}
-                </p>
-            </div>
+            <div class="crew-left">
+                <div class="crew-text">
+                    <h3 class="bellefair fw-normal crew-subtitle">{{ crewMembers[currentCrewMember].role }}</h3>
+                    <h1 class="bellefair crew-main-title fw-normal">{{ crewMembers[currentCrewMember].name }}</h1>
+                    <p class="crew-description">
+                        {{ crewMembers[currentCrewMember].bio }}
+                    </p>
+                </div>
 
-            <div class="carousel-controllers">
-                <ul class="nav-links" id="crew-nav">
-                    <li v-for="(member, index) in crewMembers" :key="index" class="nav-link crew-nav-link"
-                        :class="{ 'active': currentCrewMember === index }" @click="currentCrewMember = index"></li>
-                </ul>
+                <div class="carousel-controllers">
+                    <ul class="nav-links" id="crew-nav">
+                        <li 
+                            v-for="(member, index) in crewMembers" 
+                            :key="index" 
+                            class="nav-link crew-nav-link"
+                            :class="{ 'active': currentCrewMember === index }" 
+                            @click="currentCrewMember = index">
+                        </li>
+                    </ul>
+                </div>
             </div>
 
             <div class="crew-right">
-                <img :src="crewMembers[currentCrewMember].image"
+                <img 
+                    :src="crewMembers[currentCrewMember].image"
                     :alt="`image-${crewMembers[currentCrewMember].name.toLowerCase().replace(' ', '-')}`"
-                    class="crew-image" />
+                    class="crew-image" 
+                />
             </div>
         </div>
     </main>
@@ -46,7 +55,7 @@ export default {
             desktop: '/crew/background-crew-desktop.jpg',
             tablet: '/crew/background-crew-tablet.jpg',
             mobile: '/crew/background-crew-mobile.jpg'
-        })
+        });
         this.backgroundStore = backgroundStore;
     },
     beforeUnmount() {
@@ -58,18 +67,24 @@ export default {
 <style scoped>
 main {
     padding: 2em 2em 1em;
+    box-sizing: border-box;
+    width: 100%;
+    overflow-x: hidden;
 }
 
 .crew-container {
     display: flex;
     flex-direction: column;
+    width: 100%;
+    position: relative;
+    overflow-y: hidden;
 }
 
 .crew-title {
     font-weight: 400;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    padding: 0em 2em;
+    padding: 0 2em;
     z-index: 10;
 }
 
@@ -79,65 +94,80 @@ main {
 
 .crew-content {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    align-items: flex-end;
     height: 100%;
-    padding: 0em 5em;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0 2em;
+    position: relative;
+}
+
+.crew-left {
+    width: 50%;
+    position: relative;
 }
 
 .crew-text {
-    height: 100%;
     max-width: 539px;
     display: flex;
     flex-direction: column;
-    justify-content: end;
+    margin-bottom: 7em;
 }
 
 .crew-main-title {
     font-size: 3.3em;
     letter-spacing: 0.1em;
     text-transform: uppercase;
+    margin: 0.2em 0;
 }
 
 .crew-subtitle {
     font-size: 2.5em;
-    margin-bottom: 0.3em;
     text-transform: uppercase;
     opacity: 0.5;
+    margin: 0;
 }
 
 .crew-description {
     line-height: 180%;
+    margin-top: 1em;
+}
+
+.crew-right {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
 }
 
 .crew-right img {
-    width: 540px;
-    height: 75vh;
-    max-height: 676px;
+    max-width: 100%;
+    height: auto;
+    max-height: 70vh;
+    object-fit: contain;
 }
 
 .carousel-controllers {
     position: absolute;
     bottom: 0;
-    height: 20vh;
+    left: 0;
+    height: auto;
     display: flex;
     align-items: center;
-    width: calc(100vw - 10em);
-    background: linear-gradient(#0b0e1705 0%, #0b0e17 54%);
+    width: 100%;
+    margin-bottom: 2em;
 }
 
 #crew-nav {
     display: flex;
     list-style-type: none;
     background-color: transparent;
-    backdrop-filter: none;
-    padding: 0em 0em;
-    justify-content: unset;
+    padding: 0;
     gap: 1em;
+    margin: 0;
 }
 
 #crew-nav .nav-link {
-    padding: 0em;
     background-color: #ffffff50;
     border-radius: 50%;
     width: 15px;
@@ -151,43 +181,34 @@ main {
 }
 
 #crew-nav .nav-link.active {
-    border-bottom: none;
     background-color: #fff;
-}
-
-.mobile-crew-nav {
-    display: none;
 }
 
 /* Tablet Responsiveness */
 @media (max-width: 940px) {
-    .crew-container {
-        padding: 2em 2em;
-        height: 90%;
-        justify-content: center;
-    }
-
     .crew-content {
-        padding: 2em 0em;
-        justify-content: space-evenly;
+        flex-direction: column;
         align-items: center;
         text-align: center;
+    }
+
+    .crew-left {
+        width: 100%;
+        order: 2;
+        display: flex;
         flex-direction: column;
+        align-items: center;
     }
 
     .crew-text {
-        justify-content: start;
-        height: fit-content;
+        margin-bottom: 3em;
+        align-items: center;
+        max-width: 512px;
     }
 
     .crew-title {
-        padding: 0em 2em;
         font-size: 1.3em;
-    }
-
-    .crew-text {
-        max-width: 512px;
-        gap: 2.5em;
+        text-align: left;
     }
 
     .crew-subtitle {
@@ -202,28 +223,19 @@ main {
         line-height: 150%;
     }
 
-    .crew-left {
+    .crew-right {
         width: 100%;
-        max-width: 512px;
-        align-items: center;
-        padding: 0em 0em;
+        order: 1;
     }
 
     .crew-right img {
         max-width: 501px;
         max-height: 400px;
-        height: 100%;
-    }
-
-    .destination-main-title {
-        font-size: 1.3em;
     }
 
     .carousel-controllers {
-        width: calc(100vw - 4em);
-        height: auto;
         position: relative;
-        background: none;
+        margin: 2em 0;
     }
 
     #crew-nav {
@@ -234,43 +246,61 @@ main {
 /* Mobile Responsiveness */
 @media (max-width: 570px) {
     main {
-        padding: 1em 1em 0em;
-        height: 100%;
-    }
-
-    .crew-container {
-        height: 100%;
-        padding: 4em 0em;
+        padding: 1em 1em 0;
     }
 
     .crew-content {
-        padding: 2em 2em;
-    }
-
-    .crew-text {
-        gap: 1em;
+        padding: 0;
+        flex-direction: column-reverse;
     }
 
     .crew-title {
         text-align: center;
+        font-size: 1.2em;
+        padding: 0;
+        margin-bottom: 2em;
     }
 
-    .crew-description {
-        line-height: 100%;
+    .crew-text {
+        gap: 0.5em;
+        margin-bottom: 2em;
+    }
+
+    .crew-subtitle {
+        font-size: 1.2em;
     }
 
     .crew-main-title {
         font-size: 1.5em;
+        margin: 0;
+    }
+
+    .crew-description {
+        font-size: 0.9em;
+        line-height: 140%;
+    }
+
+    .crew-right {
+        height: 40vh;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        margin-bottom: 1.5em;
     }
 
     .crew-right img {
         max-width: 271px;
-        max-height: 350px;
+        max-height: 100%;
     }
 
-    #crew-nav {
+    .carousel-controllers {
+        margin: 0;
+        order: -1;
+        margin-bottom: 1.5em;
+        justify-content: center;
+    }
+
+    .crew-left {
         display: flex;
-        padding: 1em;
+        flex-direction: column-reverse;
     }
 }
 </style>
