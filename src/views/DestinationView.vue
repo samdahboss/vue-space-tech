@@ -25,7 +25,7 @@
 import DestinationDetails from '@/components/destination/DestinationDetails.vue'
 import DestinationNav from '@/components/destination/DestinationNav.vue'
 import destinations from '@/assets/data/destinations'
-import { useBackgroundStore } from '@/stores/backgroundStore'
+import { useBackgroundStore } from '@/stores/backgroundstore'
 
 export default {
   name: 'DestinationView',

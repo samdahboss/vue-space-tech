@@ -1,50 +1,45 @@
 <template>
   <main class="crew-container" id="main">
-    <h1 class="crew-title barlow-condensed">
-      <span>02</span> Meet your crew
-    </h1>
+    <h1 class="crew-title barlow-condensed"><span>02</span> Meet your crew</h1>
     <div class="crew-content">
       <div class="crew-left">
         <CrewDetails :crewMember="crewMembers[currentCrewMember]" />
-        <CrewNav 
-          :crewMembers="crewMembers" 
-          v-model="currentCrewMember" 
-        />
+        <CrewNav :crewMembers="crewMembers" v-model="currentCrewMember" />
       </div>
     </div>
   </main>
 </template>
 
 <script>
-import CrewDetails from '@/components/crew/CrewDetails.vue';
-import CrewNav from '@/components/crew/CrewNav.vue';
-import crewMembers from "@/assets/data/crewMembers";
-import { useBackgroundStore } from "@/stores/backgroundStore";
+import CrewDetails from '@/components/crew/CrewDetails.vue'
+import CrewNav from '@/components/crew/CrewNav.vue'
+import crewMembers from '@/assets/data/crewMembers'
+import { useBackgroundStore } from '@/stores/backgroundstore'
 
 export default {
   name: 'CrewView',
   components: {
     CrewDetails,
-    CrewNav
+    CrewNav,
   },
   data() {
     return {
       currentCrewMember: 0,
-      crewMembers
-    };
+      crewMembers,
+    }
   },
   mounted() {
-    const backgroundStore = useBackgroundStore();
+    const backgroundStore = useBackgroundStore()
     backgroundStore.setBackgroundImages({
       desktop: '/crew/background-crew-desktop.jpg',
       tablet: '/crew/background-crew-tablet.jpg',
-      mobile: '/crew/background-crew-mobile.jpg'
-    });
-    this.backgroundStore = backgroundStore;
+      mobile: '/crew/background-crew-mobile.jpg',
+    })
+    this.backgroundStore = backgroundStore
   },
   beforeUnmount() {
-    this.backgroundStore.clearBackground();
-  }
+    this.backgroundStore.clearBackground()
+  },
 }
 </script>
 
