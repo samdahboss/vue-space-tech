@@ -171,6 +171,7 @@ main {
 #destination-nav .nav-link {
     padding: 0.5em 0em;
     cursor: pointer;
+    text-transform: uppercase;
 }
 
 
