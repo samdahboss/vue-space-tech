@@ -111,7 +111,7 @@ export default {
     background-color: #fff;
     text-decoration: none;
     color: #000;
-    transition: 0.3s all ease-in-out;
+    transition: all 0.3s ease-in-out 0.3s;
 }
 
 .explore-link a:hover {
@@ -161,14 +161,87 @@ export default {
     }
 }
 
-/*Mobile Responsiveness*/
+/* Mobile Responsiveness */
 @media (max-width: 570px) {
+    main {
+        padding: 2em 1.5em;
+        height: 100%;
+    }
+
+    .hero-content {
+        padding-top: 1em;
+        gap: 3em;
+    }
+
+    .hero-text {
+        gap: 1em;
+    }
+
     .hero-subtitle {
-        font-size: 2em;
+        font-size: 1.6em;
+        margin-bottom: 0;
     }
 
     .hero-title {
         font-size: 5em;
+        margin: 0.1em 0;
+    }
+
+    .hero-description {
+        font-size: 0.9em;
+        line-height: 160%;
+        max-width: 327px;
+        margin: 0 auto;
+    }
+
+    /* Smaller explore button for mobile */
+    .explore-link {
+        width: 170px;
+        height: 170px;
+    }
+
+    .explore-link a {
+        transition: all 0.3s ease-in-out;
+    }
+
+    .explore-link a:hover {
+        width: 140px;
+        height: 140px;
+        border-width: 5px;
+    }
+
+    .explore-link p {
+        font-size: 1.25em;
+    }
+}
+
+/* Extra small devices */
+@media (max-width: 375px) {
+    main {
+        padding: 1.5em 1em;
+    }
+
+    .hero-subtitle {
+        font-size: 1.4em;
+    }
+
+    .hero-title {
+        font-size: 4em;
+    }
+
+    .hero-description {
+        font-size: 0.85em;
+        line-height: 150%;
+    }
+
+    .explore-link {
+        width: 150px;
+        height: 150px;
+    }
+
+    .explore-link a:hover {
+        width: 120px;
+        height: 120px;
     }
 }
 </style>
