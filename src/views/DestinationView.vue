@@ -1,254 +1,174 @@
 <template>
-    <main id="main">
-        <div class="destination-container">
-            <h1 class="destination-title barlow-condensed">
-                <span>01</span> Pick your destination
-            </h1>
-            <div class="destination-content">
-                <div class="destination-left">
-                    <img class="destination-image" :src="destinations[currentDestination].image"
-                        :alt="`Destination ${destinations[currentDestination].name}`" />
-                </div>
-                <div class="destination-right">
-                    <div class="destination-right-content">
-                        <ul class="nav-links" id="destination-nav">
-                            <li v-for="(destination, index) in destinations" :key="destination.name" class="nav-link"
-                                :class="{ 'active': currentDestination === index }" @click="currentDestination = index">
-                                <a href="javascript:void(0)">{{ destination.name }}</a>
-                            </li>
-                        </ul>
-
-                        <DestinationDetails :destination="destinations[currentDestination]" />
-                    </div>
-                </div>
-            </div>
+  <main id="main">
+    <div class="destination-container">
+      <h1 class="destination-title barlow-condensed"><span>01</span> Pick your destination</h1>
+      <div class="destination-content">
+        <div class="destination-left">
+          <img
+            class="destination-image"
+            :src="destinations[currentDestination].image"
+            :alt="`Destination ${destinations[currentDestination].name}`"
+          />
         </div>
-    </main>
+        <div class="destination-right">
+          <div class="destination-right-content">
+            <DestinationNav :destinations="destinations" v-model="currentDestination" />
+            <DestinationDetails :destination="destinations[currentDestination]" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
 </template>
 
 <script>
-import DestinationDetails from '@/components/DestinationDetails.vue';
-import destinations from '@/assets/data/destinations';
-import { useBackgroundStore } from '@/stores/backgroundStore';
+import DestinationDetails from '@/components/destination/DestinationDetails.vue'
+import DestinationNav from '@/components/destination/DestinationNav.vue'
+import destinations from '@/assets/data/destinations'
+import { useBackgroundStore } from '@/stores/backgroundStore'
 
 export default {
-    name: 'DestinationView',
-    components: {
-        DestinationDetails
-    },
-    data() {
-        return {
-            currentDestination: 0,
-            destinations,
-        }
-    },
-    mounted() {
-        const backgroundStore = useBackgroundStore();
-        backgroundStore.setBackgroundImages({
-            desktop: '/destination/background-destination-desktop.jpg',
-            tablet: '/destination/background-destination-tablet.jpg',
-            mobile: '/destination/background-destination-mobile.jpg'
-        })
-        this.backgroundStore = backgroundStore;
-    },
-    beforeUnmount() {
-        this.backgroundStore.clearBackground();
+  name: 'DestinationView',
+  components: {
+    DestinationDetails,
+    DestinationNav,
+  },
+  data() {
+    return {
+      currentDestination: 0,
+      destinations,
     }
+  },
+  mounted() {
+    const backgroundStore = useBackgroundStore()
+    backgroundStore.setBackgroundImages({
+      desktop: '/destination/background-destination-desktop.jpg',
+      tablet: '/destination/background-destination-tablet.jpg',
+      mobile: '/destination/background-destination-mobile.jpg',
+    })
+    this.backgroundStore = backgroundStore
+  },
+  beforeUnmount() {
+    this.backgroundStore.clearBackground()
+  },
 }
 </script>
 
 <style scoped>
 main {
-    padding: 2em 2em 1em;
+  padding: 2em 2em 1em;
 }
 
 .destination-container {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .destination-title {
-    font-weight: 400;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    padding: 0em 2em;
-    z-index: 10;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0em 2em;
+  z-index: 10;
 }
 
 .destination-title span {
-    color: #ffffff81;
+  color: #ffffff81;
 }
 
 .destination-content {
-    display: flex;
-    justify-content: center;
-    align-items: end;
-    height: 100%;
-    padding: 0em 2em;
+  display: flex;
+  justify-content: center;
+  align-items: end;
+  height: 100%;
+  padding: 0em 2em;
 }
 
 .destination-left {
-    width: 50%;
-    display: flex;
-    flex-direction: column;
-    justify-content: end;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
 }
 
 .destination-left img {
-    width: 400px;
-    height: 400px;
-    padding: 0em;
-    position: relative;
-    z-index: -40;
+  width: 400px;
+  height: 400px;
+  padding: 0em;
+  position: relative;
+  z-index: -40;
 }
 
 .destination-right {
-    display: flex;
-    flex-direction: column;
-    justify-content: end;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  align-items: center;
 }
 
 .destination-right-content {
-    max-width: 445px;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 1.5em;
-}
-
-#destination-nav {
-    display: flex;
-    list-style-type: none;
-    background-color: transparent;
-    backdrop-filter: none;
-    padding: 0em 0em;
-    justify-content: unset;
-    gap: 1em;
-}
-
-#destination-nav .nav-link {
-    padding: 0.5em 0em;
-    cursor: pointer;
-    text-transform: uppercase;
-}
-
-
-
-.nav-link a {
-    text-decoration: none;
-    color: white;
-}
-
-.nav-link.active {
-    border-bottom: 3px solid #fff;
-}
-
-.nav-link:hover:not(.active) {
-    border-bottom: 3px solid rgba(255, 255, 255, 0.36);
+  max-width: 445px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5em;
 }
 
 /* Tablet Responsiveness */
 @media (max-width: 940px) {
-    .destination-title {
-        padding: 0em 0em;
-        font-size: 1.3em;
-    }
+  .destination-title {
+    padding: 0em 0em;
+    font-size: 1.3em;
+  }
 
-    .destination-content {
-        flex-direction: column;
-        justify-content: end;
-        align-items: center;
-    }
+  .destination-content {
+    flex-direction: column;
+    justify-content: end;
+    align-items: center;
+  }
 
-    .destination-left {
-        width: 100%;
-        align-items: center;
-        padding: 2em 0em;
-    }
+  .destination-left {
+    width: 100%;
+    align-items: center;
+    padding: 2em 0em;
+  }
 
-    .destination-left img {
-        width: 300px;
-        height: 300px;
-    }
+  .destination-left img {
+    width: 300px;
+    height: 300px;
+  }
 
-    .destination-right-content {
-        max-width: 414px;
-        flex-direction: column;
-    }
-
-    #destination-nav {
-        width: 100%;
-        justify-content: center;
-    }
-
+  .destination-right-content {
+    max-width: 414px;
+    flex-direction: column;
+  }
 }
 
 /* Mobile Responsiveness */
 @media (max-width: 570px) {
-    main {
-        padding: 1em 1em 0em;
-        height: 100%;
-    }
+  main {
+    padding: 1em 1em 0em;
+    height: 100%;
+  }
 
-    .destination-container {
-        height: 100%;
-    }
+  .destination-container {
+    height: 100%;
+  }
 
-    .destination-content {
-        justify-content: center;
-    }
+  .destination-content {
+    justify-content: center;
+  }
 
-    .destination-title {
-        margin-top: 2em;
-        font-size: 1.2em;
-        text-align: center;
-    }
+  .destination-title {
+    margin-top: 2em;
+    font-size: 1.2em;
+    text-align: center;
+  }
 
-    .destination-main-title {
-        font-size: 2.5em;
-    }
-
-    .destination-description {
-        line-height: 100%;
-        font-size: 0.8em;
-    }
-
-    .destination-right-content {
-        max-width: 327px;
-        gap: 1em;
-    }
-
-    #destination-nav {
-        display: flex;
-        margin-top: -2em;
-    }
-
-    #destination-nav .nav-link {
-        padding: 0.3em 0em;
-    }
-
-    #destination-nav .nav-link.active {
-        border-right: none;
-        border-bottom: 1px solid #ffffff;
-    }
-
-    .stats {
-        flex-direction: column;
-        gap: 0.5em;
-    }
-
-    .stats div {
-        width: 100%;
-    }
-
-    .stats-title {
-        font-size: 0.8em;
-    }
-
-    .stats-details {
-        font-size: 1.5em;
-    }
+  .destination-right-content {
+    max-width: 327px;
+    gap: 1em;
+  }
 }
 </style>
