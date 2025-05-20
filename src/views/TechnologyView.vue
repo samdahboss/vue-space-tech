@@ -37,6 +37,7 @@
 
 <script>
 import technologies from '@/assets/data/technologies';
+import { useBackgroundStore } from '@/stores/backgroundStore';
 
 export default {
     name: 'TechnologyView',
@@ -48,30 +49,16 @@ export default {
         };
     },
     mounted() {
-        document.body.style.backgroundImage = "url('/technology/background-technology-desktop.jpg')";
-        window.addEventListener('resize', this.handleResize);
-        this.handleResize();
-    },
-    methods: {
-        handleResize() {
-            const windowWidth = window.innerWidth;
-            this.isDesktop = windowWidth > 940;
-
-            let bgImage;
-            if (windowWidth <= 570) {
-                bgImage = "url('/technology/background-technology-mobile.jpg')";
-            } else if (windowWidth <= 940) {
-                bgImage = "url('/technology/background-technology-tablet.jpg')";
-            } else {
-                bgImage = "url('/technology/background-technology-desktop.jpg')";
-            }
-
-            document.body.style.backgroundImage = bgImage;
-        }
+        const backgroundStore = useBackgroundStore();
+        backgroundStore.setBackgroundImages({
+            desktop: '/technology/background-technology-desktop.jpg',
+            tablet: '/technology/background-technology-tablet.jpg',
+            mobile: '/technology/background-technology-mobile.jpg'
+        })
+        this.backgroundStore = backgroundStore;
     },
     beforeUnmount() {
-        document.body.style.backgroundImage = "";
-        window.removeEventListener('resize', this.handleResize);
+        this.backgroundStore.clearBackground();
     }
 }
 </script>

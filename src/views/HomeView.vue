@@ -25,33 +25,24 @@
 </template>
 
 <script>
+import { useBackgroundStore } from '@/stores/backgroundStore'
+
 export default {
     name: 'HomeView',
     mounted() {
-        document.body.style.backgroundImage = "url('/home/background-home-desktop.jpg')"
+        const backgroundStore = useBackgroundStore();
 
-        window.addEventListener('resize', this.setResponsizeBg)
-    },
-    methods: {
-        setResponsizeBg() {
-            const windowWidth = window.innerWidth
-            let bgImage
+        backgroundStore.setBackgroundImages({
+            desktop: '/home/background-home-desktop.jpg',
+            tablet: '/home/background-home-tablet.jpg',
+            mobile: '/home/background-home-mobile.jpg'
+        })
 
-            if (windowWidth <= 570) {
-                bgImage = "url('/home/background-home-mobile.jpg')"
-            } else if (windowWidth <= 768) {
-                bgImage = "url('/home/background-home-tablet.jpg')"
-            } else {
-                bgImage = "url('/home/background-home-desktop.jpg')"
-            }
-
-            document.body.style.backgroundImage = bgImage
-        },
+        this.backgroundStore = backgroundStore;
     },
     beforeUnmount() {
         // Remove the background and event listener when component is destroyed
-        document.body.style.backgroundImage = "";
-        window.removeEventListener('resize', this.setResponsiveBackground);
+        this.backgroundStore.clearBackground();
     }
 }
 </script>

@@ -29,6 +29,7 @@
 <script>
 import DestinationDetails from '@/components/DestinationDetails.vue';
 import destinations from '@/assets/data/destinations';
+import { useBackgroundStore } from '@/stores/backgroundStore';
 
 export default {
     name: 'DestinationView',
@@ -42,29 +43,16 @@ export default {
         }
     },
     mounted() {
-        document.body.style.backgroundImage = "url('/destination/background-destination-desktop.jpg')";
-        window.addEventListener('resize', this.setResponsiveBackground);
-        this.setResponsiveBackground();
-    },
-    methods: {
-        setResponsiveBackground() {
-            const windowWidth = window.innerWidth;
-            let bgImage;
-
-            if (windowWidth <= 570) {
-                bgImage = "url('/destination/background-destination-mobile.jpg')";
-            } else if (windowWidth <= 940) {
-                bgImage = "url('/destination/background-destination-tablet.jpg')";
-            } else {
-                bgImage = "url('/destination/background-destination-desktop.jpg')";
-            }
-
-            document.body.style.backgroundImage = bgImage;
-        }
+        const backgroundStore = useBackgroundStore();
+        backgroundStore.setBackgroundImages({
+            desktop: '/destination/background-destination-desktop.jpg',
+            tablet: '/destination/background-destination-tablet.jpg',
+            mobile: '/destination/background-destination-mobile.jpg'
+        })
+        this.backgroundStore = backgroundStore;
     },
     beforeUnmount() {
-        document.body.style.backgroundImage = "";
-        window.removeEventListener('resize', this.setResponsiveBackground);
+        this.backgroundStore.clearBackground();
     }
 }
 </script>

@@ -30,6 +30,7 @@
 
 <script>
 import crewMembers from "@/assets/data/crewMembers";
+import { useBackgroundStore } from "@/stores/backgroundStore";
 
 export default {
     name: 'CrewView',
@@ -40,29 +41,16 @@ export default {
         };
     },
     mounted() {
-        document.body.style.backgroundImage = "url('/crew/background-crew-desktop.jpg')";
-        window.addEventListener('resize', this.setResponsiveBackground);
-        this.setResponsiveBackground();
-    },
-    methods: {
-        setResponsiveBackground() {
-            const windowWidth = window.innerWidth;
-            let bgImage;
-
-            if (windowWidth <= 570) {
-                bgImage = "url('/crew/background-crew-mobile.jpg')";
-            } else if (windowWidth <= 940) {
-                bgImage = "url('/crew/background-crew-tablet.jpg')";
-            } else {
-                bgImage = "url('/crew/background-crew-desktop.jpg')";
-            }
-
-            document.body.style.backgroundImage = bgImage;
-        }
+        const backgroundStore = useBackgroundStore();
+        backgroundStore.setBackgroundImages({
+            desktop: '/crew/background-crew-desktop.jpg',
+            tablet: '/crew/background-crew-tablet.jpg',
+            mobile: '/crew/background-crew-mobile.jpg'
+        })
+        this.backgroundStore = backgroundStore;
     },
     beforeUnmount() {
-        document.body.style.backgroundImage = "";
-        window.removeEventListener('resize', this.setResponsiveBackground);
+        this.backgroundStore.clearBackground();
     }
 }
 </script>
