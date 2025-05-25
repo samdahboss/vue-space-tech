@@ -1,25 +1,58 @@
 <template>
   <header>
-    <nav class="nav-container">
-      <div class="brand-icon">
+    <nav class="d-flex justify-content-end position-relative pt-2" style="z-index: 60">
+      <div
+        class="d-flex align-items-center position-absolute top-0 start-0 p-4"
+        style="width: 50vw; max-width: 736px"
+      >
         <img src="/shared/logo.svg" alt="Space tourism" />
-        <hr class="nav-line" />
+        <hr
+          class="w-100 ms-4 opacity-25 d-none d-md-block"
+          style="
+            max-width: 560px;
+            height: 1px;
+            background: #fff;
+            z-index: 20;
+            border: none;
+          "
+        />
       </div>
 
-      <ul class="nav-links">
+      <ul
+        class="d-none d-md-flex justify-content-between w-100 list-unstyled py-0 px-md-4"
+        style="
+          gap: 0.625em;
+          padding-left: 9.25em;
+          background-color: rgba(255, 255, 255, 0.05);
+          backdrop-filter: blur(8px);
+          max-width: 736px;
+        "
+      >
         <li
-          class="nav-link"
+          class="nav-link d-flex align-items-center text-uppercase"
           v-for="{ name, path, id } in routes"
           :key="id"
           :class="{ active: $route.path === path }"
         >
-          <RouterLink :to="path"
-            ><span class="fw-bold">{{ id }}</span> {{ name }}</RouterLink
+          <RouterLink class="text-white text-decoration-none" :to="path"
+            ><span class="fw-bold me-1">{{ id }}</span> {{ name }}</RouterLink
           >
         </li>
       </ul>
 
-      <button class="mobile-nav-toggle" @click="toggleMobileNav"></button>
+      <button
+        class="d-md-none border-0 bg-transparent position-absolute mt-4 me-3 top-0"
+        :style="{
+          backgroundImage: mobileNavOpen
+            ? 'url(\'/shared/icon-close.svg\')'
+            : 'url(\'/shared/icon-hamburger.svg\')',
+          backgroundSize: 'cover',
+          width: '24px',
+          height: '24px',
+          zIndex: 100,
+        }"
+        @click="toggleMobileNav"
+      ></button>
 
       <MobileNav :mobileNavOpen="mobileNavOpen" />
     </nav>
@@ -27,109 +60,34 @@
 </template>
 
 <script>
-import MobileNav from './MobileNav.vue'
-import routes from '@/assets/data/routes'
+import MobileNav from "./MobileNav.vue";
+import routes from "@/assets/data/routes";
 
 export default {
   data() {
     return {
       mobileNavOpen: false,
       routes,
-    }
+    };
   },
   components: {
     MobileNav,
   },
   methods: {
     toggleMobileNav() {
-      this.mobileNavOpen = !this.mobileNavOpen
+      this.mobileNavOpen = !this.mobileNavOpen;
     },
   },
-}
+};
 </script>
 
 <style scoped>
-@import '@/assets/styles/navigation.css';
-
-/* Navigation classes */
-.nav-container {
-  padding: 2em 0 0em;
-  display: flex;
-  justify-content: end;
-  position: relative;
-  z-index: 60;
-}
-
-.nav-links {
-  list-style-type: none;
-  display: flex;
-  gap: 0.625em;
-  padding: 0em 4.25em 0em 9.25em;
-  background-color: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(8px);
-  width: 100%;
-  max-width: 736px;
-  justify-content: space-between;
-}
-
-.brand-icon {
-  display: flex;
-  align-items: center;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 50vw;
-  max-width: 736px;
-  padding: 2em;
-}
-
-.nav-line {
-  max-width: 560px;
-  width: 100%;
-  height: 1px;
-  background: #fff;
-  opacity: 25%;
-  margin-left: 2em;
-  z-index: 20;
-  border: none;
-}
-
-.mobile-nav-toggle {
-  display: none;
-  position: absolute;
-  width: 24px;
-  height: 24px;
-  right: 1em;
-  top: 1.25em;
-  z-index: 100;
-  outline: none;
-  border: none;
-  cursor: pointer;
-  background-color: transparent;
-  background-image: url('/public/shared/icon-hamburger.svg');
-  background-size: cover;
-}
+@import "@/assets/styles/navigation.css";
 
 /* Tablet Responsiveness */
 @media (max-width: 768px) {
-  .nav-container {
-    padding: 0em;
-  }
-
-  .brand-icon {
-    margin-left: 0;
-    padding: 1em;
-    width: 10%;
-  }
-
   .nav-line {
     display: none;
-  }
-
-  .nav-links {
-    width: 90%;
-    max-width: 640px;
-    padding: 0em 1.25em 0em 3.25em;
   }
 }
 
@@ -137,10 +95,6 @@ export default {
 @media (max-width: 570px) {
   .nav-links {
     display: none;
-  }
-
-  .mobile-nav-toggle {
-    display: block;
   }
 }
 </style>
