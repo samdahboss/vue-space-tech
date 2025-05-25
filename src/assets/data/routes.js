@@ -16,7 +16,7 @@ export default [
   },
   {
     name: 'Technology',
-    id: '00',
+    id: '03',
     path: '/tech',
   },
 ]
