@@ -20,7 +20,7 @@ body #app{
   height: 100%;
 }
 
-main {
+#main {
   padding: 4em 6em;
   height: 80%;
 }
